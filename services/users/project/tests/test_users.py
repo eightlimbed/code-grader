@@ -6,12 +6,14 @@ from project import db
 from project.api.models import User
 from project.tests.base import BaseTestCase
 
+
 # Helper function to add users for GET all users test
 def add_user(username, email):
     user = User(username=username, email=email)
     db.session.add(user)
     db.session.commit()
     return user
+
 
 class TestUserService(BaseTestCase):
 
@@ -27,12 +29,12 @@ class TestUserService(BaseTestCase):
         '''Ensure a new user can be added to the db'''
         with self.client:
             response = self.client.post('/users',
-                    data=json.dumps({
-                        'username': 'theo',
-                        'email': 'theo@huxtable.com'
-                    }),
-                    content_type='application/json',
-            )
+                                        data=json.dumps({
+                                            'username': 'theo',
+                                            'email': 'theo@huxtable.com'
+                                        }),
+                                        content_type='application/json',
+                                        )
             data = json.loads(response.data.decode())
             self.assertEqual(response.status_code, 201)
             self.assertIn('theo@huxtable.com was added!', data['message'])
@@ -78,7 +80,8 @@ class TestUserService(BaseTestCase):
                 )
                 data = json.loads(response.data.decode())
                 self.assertEqual(response.status_code, 400)
-                self.assertIn('Sorry. That email already exists.', data['message'])
+                self.assertIn('Sorry. That email already exists.',
+                              data['message'])
                 self.assertIn('fail', data['status'])
 
     def test_single_user(self):
@@ -158,6 +161,7 @@ class TestUserService(BaseTestCase):
             self.assertIn(b'All Users', response.data)
             self.assertNotIn(b'<p>No users!</p>', response.data)
             self.assertIn(b'donniedarko', response.data)
+
 
 if __name__ == '__main__':
     unittest.main()
