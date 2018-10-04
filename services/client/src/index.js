@@ -25,7 +25,6 @@ class App extends Component {
                 <div className="container">
                     <div className="columns">
                         <div className="column is-half">
-                        <div className="column is-one-third">
                             <br />
                             <h1 className="title is-1">All Users</h1>
                             <hr/><br/>
