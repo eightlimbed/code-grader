@@ -1,6 +1,7 @@
 # Configures a route to /users/ping for testing purposes
 
 from flask import Flask
+from flask_cors import CORS
 from flask_debugtoolbar import DebugToolbarExtension
 from flask_sqlalchemy import SQLAlchemy
 import os
@@ -16,6 +17,9 @@ def create_app(script_info=None):
 
     # Instantiate the app
     app = Flask(__name__)
+
+    # Enable CORS
+    CORS(app)
 
     # Set configurations
     app_settings = os.getenv('APP_SETTINGS')
