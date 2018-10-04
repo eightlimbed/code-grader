@@ -12,10 +12,16 @@ def ping_pong():
     '''Test that API works.'''
     return jsonify({'status': 'success', 'message': 'pong!'})
 
-@users_blueprint.route('/', methods=['GET'])
+@users_blueprint.route('/', methods=['GET', 'POST'])
 def index():
     '''Returns the index page.'''
-    return render_template('index.html')
+    if request.method == 'POST':
+        username = request.form['username']
+        email = request.form['email']
+        db.session.add(User(username=username, email=email))
+        db.session.commit()
+    users = User.query.all()
+    return render_template('index.html', users=users)
 
 @users_blueprint.route('/users', methods=['POST'])
 def add_user():
