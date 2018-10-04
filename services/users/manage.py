@@ -3,10 +3,38 @@
 from flask.cli import FlaskGroup
 from project import create_app, db
 from project.api.models import User
+import coverage
 import unittest
 
 app = create_app()
 cli = FlaskGroup(create_app=create_app)
+
+# Configure coverage reports
+COV = coverage.coverage(
+        branch=True,
+        include='project/*',
+        omit=[
+            'project/tests/*',
+            'project/config.py'
+        ]
+)
+COV.start()
+
+# Run code coverage
+@cli.command()
+def cov():
+    '''Runs unit tests with coverage'''
+    tests = unittest.TestLoader().discover('project/tests')
+    result = unittest.TextTestRunner(verbosity=2).run(tests)
+    if result.wasSuccessful():
+        COV.stop()
+        COV.save()
+        print('Coverage summary:')
+        COV.report()
+        COV.html_report()
+        COV.erase()
+        return 0
+    return 1
 
 # Create a cli command for recreating the db
 @cli.command()
