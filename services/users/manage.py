@@ -11,6 +11,7 @@ cli = FlaskGroup(create_app=create_app)
 # Create a cli command for recreating the db
 @cli.command()
 def recreate_db():
+    '''Recreates the database for a fresh start'''
     db.drop_all()
     db.create_all()
     db.session.commit()
@@ -18,6 +19,7 @@ def recreate_db():
 # Create a cli command for running unit tests
 @cli.command()
 def test():
+    '''Runs all unit tests'''
     tests = unittest.TestLoader().discover('project/tests', pattern='test*.py')
     results = unittest.TextTestRunner(verbosity=2).run(tests)
     if results.wasSuccessful():
