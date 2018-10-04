@@ -1,3 +1,4 @@
+import AddUser from './components/AddUser';
 import axios from 'axios';
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
@@ -23,10 +24,13 @@ class App extends Component {
             <section className="section">
                 <div className="container">
                     <div className="columns">
+                        <div className="column is-half">
                         <div className="column is-one-third">
                             <br />
                             <h1 className="title is-1">All Users</h1>
                             <hr/><br/>
+                            <AddUser/>
+                            <br/><br/>
                             <UsersList users={this.state.users}/>
                         </div>
                     </div>
