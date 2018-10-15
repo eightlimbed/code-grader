@@ -10,9 +10,14 @@ class App extends Component {
         this.state = {
             users: []
         };
+        this.addUser = this.addUser.bind(this);
     };
     componentDidMount() {
         this.getUsers();
+    };
+    addUser(event) {
+        event.preventDefault();
+        console.log('sanity check');
     };
     getUsers() {
         axios.get(`${process.env.REACT_APP_USERS_SERVICE_URL}/users`)
@@ -25,6 +30,7 @@ class App extends Component {
                 <div className="container">
                     <div className="columns">
                         <div className="column is-half">
+                            <AddUser addUser={this.addUser}/>
                             <br />
                             <h1 className="title is-1">All Users</h1>
                             <hr/><br/>
