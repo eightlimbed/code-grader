@@ -1,8 +1,0 @@
-__pycache__
-env
-gcp-service-account-key.json
-creds.json
-TODO
-.terraform
-terraform*
-htmlcov/
