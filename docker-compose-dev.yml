@@ -36,8 +36,8 @@ services:
         ports:
             - 80:80
         depends_on:
-            - client
             - users
+            - client
 
     client:
         build:
